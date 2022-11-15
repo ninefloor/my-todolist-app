@@ -70,19 +70,37 @@ const Input = styled.input`
   }
 `;
 
-const EditTodo = ({ editClickHandler }) => {
+const EditTodo = ({ isEdit, setIsEdit, setTodoList }) => {
   const [textValue, setTextValue] = useState("");
   const textChangeHandler = (eVal) => {
     setTextValue(eVal);
+  };
+  const editHandler = (id) => {
+    setTodoList((prev) => {
+      return prev.map((el) => {
+        if (el.id === id) el.content = textValue;
+        return el;
+      });
+    });
+    setIsEdit([false, -1]);
+  };
+  const keyUpHandler = (code) => {
+    if (code === 'Enter') editHandler(isEdit[1]);
   }
   return (
-    <Background onClick={editClickHandler}>
+    <Background onClick={() => setIsEdit([false, -1])}>
       <Container onClick={(e) => e.stopPropagation()}>
-        <CloseBtn onClick={editClickHandler}>
+        <CloseBtn onClick={() => setIsEdit([false, -1])}>
           <i class="fa-solid fa-2xl fa-xmark"></i>
         </CloseBtn>
-        <Input type="text" value={textValue} placeholder="할 일을 입력하세요" onChange={e => textChangeHandler(e.target.value)}/>
-        <SubmitBtn>수정하기</SubmitBtn>
+        <Input
+          type="text"
+          value={textValue}
+          placeholder="할 일을 입력하세요"
+          onChange={(e) => textChangeHandler(e.target.value)}
+          onKeyUp={(e) => keyUpHandler(e.key)}
+        />
+        <SubmitBtn onClick={() => editHandler(isEdit[1])}>수정하기</SubmitBtn>
       </Container>
     </Background>
   );

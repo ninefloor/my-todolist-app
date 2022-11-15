@@ -43,7 +43,7 @@ const Button = styled.button`
   transition: all 0.3s;
 `
 
-const Todo = ({editClickHandler, todo, setTodoList, idx}) => {
+const Todo = ({setIsEdit, todo, setTodoList, idx}) => {
   const checkedHandler = (checked, idx) => {
     setTodoList(prev => {
       const cur = prev.slice();
@@ -51,6 +51,9 @@ const Todo = ({editClickHandler, todo, setTodoList, idx}) => {
       return cur;
     })
   };
+  const editHandler = (id) => {
+    setIsEdit([true, id])
+  }
   const deleteHandler = (id) => {
     setTodoList(prev => {
       return prev.filter((el) => el.id !== id);
@@ -71,7 +74,7 @@ const Todo = ({editClickHandler, todo, setTodoList, idx}) => {
         )}
       </Label>
         <TodoText isChecked={todo.checked}>{todo.content}</TodoText>
-        <Button onClick={editClickHandler} isChecked={todo.checked}><i class="fa-solid fa-xl fa-pen"></i></Button>
+        <Button onClick={() => editHandler(todo.id)} isChecked={todo.checked}><i class="fa-solid fa-xl fa-pen"></i></Button>
         <Button onClick={() => deleteHandler(todo.id)} isChecked={todo.checked}><i class="fa-solid fa-xl fa-trash"></i></Button>
     </List>
   );
