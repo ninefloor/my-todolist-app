@@ -70,10 +70,21 @@ const Input = styled.input`
   }
 `;
 
-const AddTodo = ({ addClickHandler }) => {
+const AddTodo = ({ addClickHandler, setTodoList }) => {
   const [textValue, setTextValue] = useState("");
   const textChangeHandler = (eVal) => {
     setTextValue(eVal);
+  };
+  const addTodolistHandler = (value) => {
+    setTodoList((prev) => {
+      const cur = prev.slice();
+      cur.push({ id: cur[cur.length - 1].id + 1, checked: false , content: value});
+      return cur;
+    });
+    addClickHandler();
+  };
+  const keyUpHandler = (code) => {
+    if (code === 'Enter') addTodolistHandler(textValue);
   }
   return (
     <Background onClick={addClickHandler}>
@@ -81,8 +92,16 @@ const AddTodo = ({ addClickHandler }) => {
         <CloseBtn onClick={addClickHandler}>
           <i class="fa-solid fa-2xl fa-xmark"></i>
         </CloseBtn>
-        <Input type="text" value={textValue} placeholder="할 일을 입력하세요" onChange={e => textChangeHandler(e.target.value)}/>
-        <SubmitBtn>등록하기</SubmitBtn>
+        <Input
+          type="text"
+          value={textValue}
+          placeholder="할 일을 입력하세요"
+          onChange={(e) => textChangeHandler(e.target.value)}
+          onKeyUp={(e) => keyUpHandler(e.key)}
+        />
+        <SubmitBtn onClick={(e) => addTodolistHandler(textValue)}>
+          등록하기
+        </SubmitBtn>
       </Container>
     </Background>
   );

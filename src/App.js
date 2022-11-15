@@ -44,7 +44,7 @@ function App() {
   const editClickHandler = () => setIsEdit(!isEdit);
   return (
     <>
-    {isAdd ? <AddTodo addClickHandler={addClickHandler} /> : undefined}
+    {isAdd ? <AddTodo setTodoList={setTodoList} addClickHandler={addClickHandler} /> : undefined}
     {isEdit ? <EditTodo editClickHandler={editClickHandler} /> : undefined}
     <main>
       <h1>뭐 해야 되지?</h1>
