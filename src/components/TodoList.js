@@ -6,10 +6,10 @@ const TodoListUl = styled.ul`
   height: 500px;
 `;
 
-const TodoList = ({todoList, editClickHandler}) => {
+const TodoList = ({setTodoList, todoList, editClickHandler}) => {
   return (
     <TodoListUl>
-      {todoList.map(todo => <Todo todo={todo} id={todo.id} editClickHandler={editClickHandler}/>)}
+      {todoList.map((todo, idx) => <Todo todo={todo} id={todo.id} idx={idx} setTodoList={setTodoList} editClickHandler={editClickHandler}/>)}
     </TodoListUl>
   );
 };

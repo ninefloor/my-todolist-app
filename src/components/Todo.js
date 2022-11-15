@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const List = styled.li`
@@ -44,28 +43,36 @@ const Button = styled.button`
   transition: all 0.3s;
 `
 
-const Todo = ({editClickHandler, todo}) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const checkedHandler = (checked) => {
-    setIsChecked(checked);
+const Todo = ({editClickHandler, todo, setTodoList, idx}) => {
+  const checkedHandler = (checked, idx) => {
+    setTodoList(prev => {
+      const cur = prev.slice();
+      cur[idx].checked = checked;
+      return cur;
+    })
+  };
+  const deleteHandler = (id) => {
+    setTodoList(prev => {
+      return prev.filter((el) => el.id !== id);
+    })
   };
   return (
-    <List isChecked={isChecked}>
+    <List isChecked={todo.checked}>
       <Input
         id={todo.id}
         type="checkbox"
-        onChange={(e) => checkedHandler(e.target.checked)}
+        onChange={(e) => checkedHandler(e.target.checked, idx)}
       />
       <Label htmlFor={todo.id}>
-        {isChecked ? (
+        {todo.checked ? (
           <i class="fa-regular fa-2xl fa-square-check" />
         ) : (
           <i class="fa-regular fa-2xl fa-square"></i>
         )}
       </Label>
-        <TodoText isChecked={isChecked}>{todo.content}</TodoText>
-        <Button onClick={editClickHandler} isChecked={isChecked}><i class="fa-solid fa-xl fa-pen"></i></Button>
-        <Button isChecked={isChecked}><i class="fa-solid fa-xl fa-trash"></i></Button>
+        <TodoText isChecked={todo.checked}>{todo.content}</TodoText>
+        <Button onClick={editClickHandler} isChecked={todo.checked}><i class="fa-solid fa-xl fa-pen"></i></Button>
+        <Button onClick={() => deleteHandler(todo.id)} isChecked={todo.checked}><i class="fa-solid fa-xl fa-trash"></i></Button>
     </List>
   );
 };

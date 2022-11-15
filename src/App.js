@@ -53,7 +53,7 @@ function App() {
           <Button onClick={addClickHandler}><i class="fa-solid fa-2xl fa-plus"></i></Button>
           <Button><i class="fa-solid fa-2xl fa-bars"></i></Button>
         </BtnContainer>
-        <TodoList todoList={todoList} editClickHandler={editClickHandler}/>
+        <TodoList todoList={todoList} setTodoList={setTodoList} editClickHandler={editClickHandler}/>
       </Container>
     </main>
     </>
