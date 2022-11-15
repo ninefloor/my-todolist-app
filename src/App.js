@@ -4,6 +4,7 @@ import AddTodo from './components/AddTodo';
 import EditTodo from './components/EditTodo';
 import styled from 'styled-components';
 import { useState } from 'react';
+import initialState from './initialState';
 
 const Container = styled.ul`
   width: 800px;
@@ -35,6 +36,7 @@ const Button = styled.button`
 `;
 
 function App() {
+  const [todoList, setTodoList] = useState(initialState);
   const [isAdd, setIsAdd] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -51,7 +53,7 @@ function App() {
           <Button onClick={addClickHandler}><i class="fa-solid fa-2xl fa-plus"></i></Button>
           <Button><i class="fa-solid fa-2xl fa-bars"></i></Button>
         </BtnContainer>
-        <TodoList editClickHandler={editClickHandler}/>
+        <TodoList todoList={todoList} editClickHandler={editClickHandler}/>
       </Container>
     </main>
     </>

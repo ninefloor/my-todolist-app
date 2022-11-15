@@ -44,7 +44,7 @@ const Button = styled.button`
   transition: all 0.3s;
 `
 
-const Todo = ({editClickHandler}) => {
+const Todo = ({editClickHandler, todo}) => {
   const [isChecked, setIsChecked] = useState(false);
   const checkedHandler = (checked) => {
     setIsChecked(checked);
@@ -52,18 +52,18 @@ const Todo = ({editClickHandler}) => {
   return (
     <List isChecked={isChecked}>
       <Input
-        id="check"
+        id={todo.id}
         type="checkbox"
         onChange={(e) => checkedHandler(e.target.checked)}
       />
-      <Label htmlFor="check">
+      <Label htmlFor={todo.id}>
         {isChecked ? (
           <i class="fa-regular fa-2xl fa-square-check" />
         ) : (
           <i class="fa-regular fa-2xl fa-square"></i>
         )}
       </Label>
-        <TodoText isChecked={isChecked}>이것만 하고 자러 갈거야</TodoText>
+        <TodoText isChecked={isChecked}>{todo.content}</TodoText>
         <Button onClick={editClickHandler} isChecked={isChecked}><i class="fa-solid fa-xl fa-pen"></i></Button>
         <Button isChecked={isChecked}><i class="fa-solid fa-xl fa-trash"></i></Button>
     </List>
