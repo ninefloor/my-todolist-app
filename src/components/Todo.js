@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { checkedTodo, deleteTodo } from "../actions";
 
 const List = styled.li`
   width: 700px;
@@ -43,39 +45,34 @@ const Button = styled.button`
   transition: all 0.3s;
 `
 
-const Todo = ({setIsEdit, todo, setTodoList, idx}) => {
-  const checkedHandler = (checked, idx) => {
-    setTodoList(prev => {
-      const cur = prev.slice();
-      cur[idx].checked = checked;
-      return cur;
-    })
+const Todo = ({setIsEdit, todo}) => {
+  const dispatch = useDispatch();
+  const checkedHandler = (checked, id) => {
+    dispatch(checkedTodo(checked, id))
   };
   const editHandler = (id) => {
-    setIsEdit([true, id])
+    setIsEdit([true, id, todo.content])
   }
   const deleteHandler = (id) => {
-    setTodoList(prev => {
-      return prev.filter((el) => el.id !== id);
-    })
+    dispatch(deleteTodo(id))
   };
   return (
     <List isChecked={todo.checked}>
       <Input
         id={todo.id}
         type="checkbox"
-        onChange={(e) => checkedHandler(e.target.checked, idx)}
+        onChange={(e) => checkedHandler(e.target.checked, todo.id)}
       />
       <Label htmlFor={todo.id}>
         {todo.checked ? (
-          <i class="fa-regular fa-2xl fa-square-check" />
+          <i className="fa-regular fa-2xl fa-square-check" />
         ) : (
-          <i class="fa-regular fa-2xl fa-square"></i>
+          <i className="fa-regular fa-2xl fa-square"></i>
         )}
       </Label>
         <TodoText isChecked={todo.checked}>{todo.content}</TodoText>
-        <Button onClick={() => editHandler(todo.id)} isChecked={todo.checked}><i class="fa-solid fa-xl fa-pen"></i></Button>
-        <Button onClick={() => deleteHandler(todo.id)} isChecked={todo.checked}><i class="fa-solid fa-xl fa-trash"></i></Button>
+        <Button onClick={() => editHandler(todo.id)} isChecked={todo.checked}><i className="fa-solid fa-xl fa-pen"></i></Button>
+        <Button onClick={() => deleteHandler(todo.id)} isChecked={todo.checked}><i className="fa-solid fa-xl fa-trash"></i></Button>
     </List>
   );
 };

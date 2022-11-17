@@ -4,7 +4,7 @@ import AddTodo from "./components/AddTodo";
 import EditTodo from "./components/EditTodo";
 import styled from "styled-components";
 import { useState } from "react";
-import initialState from "./initialState";
+import initialState from "./reducers/initialState";
 
 const Container = styled.ul`
   width: 800px;
@@ -36,31 +36,28 @@ const Button = styled.button`
 `;
 
 function App() {
-  const [todoList, setTodoList] = useState(initialState);
   const [isAdd, setIsAdd] = useState(false);
-  const [isEdit, setIsEdit] = useState([false, -1]);
+  const [isEdit, setIsEdit] = useState([false, -1, '']);
 
   const addClickHandler = () => setIsAdd(!isAdd);
   return (
     <>
       {isAdd ? (
-        <AddTodo setTodoList={setTodoList} addClickHandler={addClickHandler} />
+        <AddTodo addClickHandler={addClickHandler} />
       ) : undefined}
-      {isEdit[0] ? <EditTodo isEdit={isEdit} setTodoList={setTodoList} setIsEdit={setIsEdit} /> : undefined}
+      {isEdit[0] ? <EditTodo isEdit={isEdit} setIsEdit={setIsEdit} /> : undefined}
       <main>
         <h1>뭐 해야 되지?</h1>
         <Container>
           <BtnContainer>
             <Button onClick={addClickHandler}>
-              <i class="fa-solid fa-2xl fa-plus"></i>
+              <i className="fa-solid fa-2xl fa-plus"></i>
             </Button>
             <Button>
-              <i class="fa-solid fa-2xl fa-bars"></i>
+              <i className="fa-solid fa-2xl fa-bars"></i>
             </Button>
           </BtnContainer>
           <TodoList
-            todoList={todoList}
-            setTodoList={setTodoList}
             setIsEdit={setIsEdit}
           />
         </Container>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { addTodo } from "../actions";
+import { useDispatch } from "react-redux";
 
 const Background = styled.div`
   width: 100%;
@@ -70,30 +72,37 @@ const Input = styled.input`
   }
 `;
 
-const AddTodo = ({ addClickHandler, setTodoList }) => {
+const AddTodo = ({ addClickHandler }) => {
   const [textValue, setTextValue] = useState("");
+  const dispatch = useDispatch();
+
+  const inputEl = useRef();
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
+
   const textChangeHandler = (eVal) => {
     setTextValue(eVal);
   };
+
   const addTodolistHandler = (value) => {
-    setTodoList((prev) => {
-      const cur = prev.slice();
-      cur.push({ id: cur[cur.length - 1].id + 1, checked: false , content: value});
-      return cur;
-    });
+    dispatch(addTodo(value));
     addClickHandler();
   };
+
   const keyUpHandler = (code) => {
     if (code === 'Enter') addTodolistHandler(textValue);
   }
+
   return (
     <Background onClick={addClickHandler}>
       <Container onClick={(e) => e.stopPropagation()}>
         <CloseBtn onClick={addClickHandler}>
-          <i class="fa-solid fa-2xl fa-xmark"></i>
+          <i className="fa-solid fa-2xl fa-xmark"></i>
         </CloseBtn>
         <Input
           type="text"
+          ref={inputEl}
           value={textValue}
           placeholder="할 일을 입력하세요"
           onChange={(e) => textChangeHandler(e.target.value)}

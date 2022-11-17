@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { editTodo } from "../actions";
 
 const Background = styled.div`
   width: 100%;
@@ -70,31 +72,37 @@ const Input = styled.input`
   }
 `;
 
-const EditTodo = ({ isEdit, setIsEdit, setTodoList }) => {
-  const [textValue, setTextValue] = useState("");
+const EditTodo = ({ isEdit, setIsEdit }) => {
+  const [textValue, setTextValue] = useState(isEdit[2]);
+  const dispatch = useDispatch();
+
+  const inputEl = useRef();
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
+
   const textChangeHandler = (eVal) => {
     setTextValue(eVal);
   };
+
   const editHandler = (id) => {
-    setTodoList((prev) => {
-      return prev.map((el) => {
-        if (el.id === id) el.content = textValue;
-        return el;
-      });
-    });
-    setIsEdit([false, -1]);
+    dispatch(editTodo(textValue, id));
+    setIsEdit([false, -1, ""]);
   };
+
   const keyUpHandler = (code) => {
-    if (code === 'Enter') editHandler(isEdit[1]);
-  }
+    if (code === "Enter") editHandler(isEdit[1]);
+  };
+
   return (
-    <Background onClick={() => setIsEdit([false, -1])}>
+    <Background onClick={() => setIsEdit([false, -1, ""])}>
       <Container onClick={(e) => e.stopPropagation()}>
-        <CloseBtn onClick={() => setIsEdit([false, -1])}>
-          <i class="fa-solid fa-2xl fa-xmark"></i>
+        <CloseBtn onClick={() => setIsEdit([false, -1, ""])}>
+          <i className="fa-solid fa-2xl fa-xmark"></i>
         </CloseBtn>
         <Input
           type="text"
+          ref={inputEl}
           value={textValue}
           placeholder="할 일을 입력하세요"
           onChange={(e) => textChangeHandler(e.target.value)}
