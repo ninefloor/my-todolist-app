@@ -4,7 +4,7 @@ import AddTodo from "./components/AddTodo";
 import EditTodo from "./components/EditTodo";
 import styled from "styled-components";
 import { useState } from "react";
-import initialState from "./reducers/initialState";
+
 
 const Container = styled.ul`
   width: 800px;
