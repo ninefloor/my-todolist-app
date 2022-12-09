@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { addTodo } from "../actions";
 import { useDispatch } from "react-redux";
+import { IconButton, TextButton, TextInput } from "./styledComponents";
 
 const Background = styled.div`
   width: 100%;
@@ -28,48 +29,11 @@ const Container = styled.ul`
   align-items: center;
 `;
 
-const Button = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: "Spoqa Han Sans Neo", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-`;
-const CloseBtn = styled(Button)`
-  width: 25px;
-  height: 25px;
+const CloseBtn = styled(IconButton)`
   color: #f2edeb;
   position: absolute;
   top: -38px;
   right: 0;
-`;
-const SubmitBtn = styled(Button)`
-  width: 130px;
-  height: 40px;
-  color: #f2edeb;
-  background-color: #0d0d0d;
-  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  font-size: 1.1rem;
-`;
-
-const Input = styled.input`
-  width: 500px;
-  height: 50px;
-  border: none;
-  box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.1);
-  outline: none;
-  font-size: 1.3rem;
-  background-color: #bfbebd;
-  border-radius: 10px;
-  padding-left: 8px;
-  font-family: "Spoqa Han Sans Neo", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-  &::placeholder {
-    font-weight: 300;
-  }
 `;
 
 const AddTodo = ({ addClickHandler }) => {
@@ -91,8 +55,8 @@ const AddTodo = ({ addClickHandler }) => {
   };
 
   const keyUpHandler = (code) => {
-    if (code === 'Enter') addTodolistHandler(textValue);
-  }
+    if (code === "Enter") addTodolistHandler(textValue);
+  };
 
   return (
     <Background onClick={addClickHandler}>
@@ -100,7 +64,7 @@ const AddTodo = ({ addClickHandler }) => {
         <CloseBtn onClick={addClickHandler}>
           <i className="fa-solid fa-2xl fa-xmark"></i>
         </CloseBtn>
-        <Input
+        <TextInput
           type="text"
           ref={inputEl}
           value={textValue}
@@ -108,9 +72,9 @@ const AddTodo = ({ addClickHandler }) => {
           onChange={(e) => textChangeHandler(e.target.value)}
           onKeyUp={(e) => keyUpHandler(e.key)}
         />
-        <SubmitBtn onClick={(e) => addTodolistHandler(textValue)}>
+        <TextButton onClick={(e) => addTodolistHandler(textValue)}>
           등록하기
-        </SubmitBtn>
+        </TextButton>
       </Container>
     </Background>
   );
