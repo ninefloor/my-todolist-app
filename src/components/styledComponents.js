@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+const Button = styled.button`
   background: none;
   border: none;
   cursor: pointer;
@@ -9,13 +9,13 @@ export const Button = styled.button`
     "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 
-export const IconButton = styled(Button)`
+const IconButton = styled(Button)`
   width: 25px;
   height: 25px;
   color: #0d0d0d;
 `;
 
-export const TextButton = styled(Button)`
+const TextButton = styled(Button)`
   width: 130px;
   height: 40px;
   color: #f2edeb;
@@ -25,7 +25,7 @@ export const TextButton = styled(Button)`
   font-size: 1.1rem;
 `;
 
-export const TextInput = styled.input.attrs((props) => ({
+const TextInput = styled.input.attrs((props) => ({
   type: "text",
 }))`
   width: 500px;
@@ -45,6 +45,8 @@ export const TextInput = styled.input.attrs((props) => ({
   }
 `;
 
+// CheckBox용 styled
+
 const CheckInput = styled.input.attrs((props) => ({ type: "checkbox" }))`
   display: none;
 `;
@@ -53,7 +55,7 @@ const CheckLabel = styled.label`
   margin-right: 14px;
 `;
 
-export const CheckBox = ({ todo, checkedHandler }) => {
+const CheckBox = ({ todo, checkedHandler }) => {
   return (
     <>
       <CheckInput
@@ -71,3 +73,5 @@ export const CheckBox = ({ todo, checkedHandler }) => {
     </>
   );
 };
+
+export { CheckBox, TextInput, TextButton, IconButton, Button };
