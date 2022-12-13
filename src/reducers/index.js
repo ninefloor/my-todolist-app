@@ -2,7 +2,10 @@ import { ADD_TODO, EDIT_TODO, CHECKED_TODO, DELETE_TODO } from "../actions";
 import initialState from "./initialState";
 import { v4 as uuidv4 } from "uuid";
 
-const todoReducer = (state = initialState, action) => {
+const todoReducer = (
+  state = JSON.parse(localStorage.getItem("data")) || initialState,
+  action
+) => {
   switch (action.type) {
     case ADD_TODO:
       return [
