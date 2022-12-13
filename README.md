@@ -1,4 +1,7 @@
 # my-todolist-app
+
+![my-todo-list-app](https://user-images.githubusercontent.com/77656241/207211898-dd78eb17-fe32-476b-bce5-ba7682d1ffd3.gif)
+
 CRUD 기능을 구현한 간단한 Todo List 어플리케이션입니다.
 - localStorage를 활용한 데이터 저장
 - Todo 추가
