@@ -74,4 +74,80 @@ const CheckBox = ({ todo, checkedHandler }) => {
   );
 };
 
-export { CheckBox, TextInput, TextButton, IconButton, Button };
+const FilterUl = styled.ul`
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  transition: all 0.1s ease-in;
+  box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.25);
+  li {
+    width: 100%;
+    height: 40px;
+    border-top: 3px solid #f2edeb;
+    text-align: center;
+    background-color: #bfbebd;
+    transition: all 0.1s ease-in;
+    &:hover {
+      background-color: #404040;
+      button {
+        transition: all 0.1s ease-in;
+        color: #f2edeb;
+      }
+    }
+    &:first-child {
+      border: none;
+    }
+    button {
+      width: 100%;
+      height: 100%;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: 0;
+      background: none;
+      outline: none;
+      cursor: pointer;
+
+      &.active::before {
+        content: "✓";
+        margin-right: 3px;
+        font-size: 1rem;
+      }
+    }
+  }
+`;
+
+const Filter = ({ filter, setFilter, setIsFilter }) => {
+  const clickHandler = (e) => {
+    const { name } = e.target;
+    setFilter(name);
+    setIsFilter(false);
+  };
+  return (
+    <FilterUl>
+      <li>
+        <button name="default" className={filter === "default" ? 'active' : ''} onClick={(e) => clickHandler(e)}>
+          기본
+        </button>
+      </li>
+      <li>
+        <button name="checked" className={filter === "checked" ? 'active' : ''} onClick={(e) => clickHandler(e)}>
+          완료
+        </button>
+      </li>
+      <li>
+        <button name="unChecked" className={filter === "unChecked" ? 'active' : ''} onClick={(e) => clickHandler(e)}>
+          미완료
+        </button>
+      </li>
+    </FilterUl>
+  );
+};
+
+export { CheckBox, TextInput, TextButton, IconButton, Button, Filter };
