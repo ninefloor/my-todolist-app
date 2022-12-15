@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.401a7662.css",
-    "main.js": "/static/js/main.b76cd440.js",
-    "index.html": "/index.html",
-    "main.401a7662.css.map": "/static/css/main.401a7662.css.map",
-    "main.b76cd440.js.map": "/static/js/main.b76cd440.js.map"
+    "main.css": "https://ninefloor.github.io/my-todolist-app/static/css/main.dca4755e.css",
+    "main.js": "https://ninefloor.github.io/my-todolist-app/static/js/main.d0453d81.js",
+    "index.html": "https://ninefloor.github.io/my-todolist-app/index.html",
+    "main.dca4755e.css.map": "https://ninefloor.github.io/my-todolist-app/static/css/main.dca4755e.css.map",
+    "main.d0453d81.js.map": "https://ninefloor.github.io/my-todolist-app/static/js/main.d0453d81.js.map"
   },
   "entrypoints": [
-    "static/css/main.401a7662.css",
-    "static/js/main.b76cd440.js"
+    "static/css/main.dca4755e.css",
+    "static/js/main.d0453d81.js"
   ]
 }
